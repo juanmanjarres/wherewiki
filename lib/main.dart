@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wikidart/wikidart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +31,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Future<WikiResponse?> getWiki() async {
+    var res = await Wikidart.searchQuery('Google');
+    var pageid = res?.results?.first.pageId;
+
+    if (pageid != null) {
+      var google = await Wikidart.summary(pageid);
+      return google;
+
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
             ),
+            FutureBuilder(
+                future: getWiki(),
+                builder: (ctx, snapshot){
+                  return Text(snapshot.data?.description ?? '');
+                })
           ],
         ),
       ),
