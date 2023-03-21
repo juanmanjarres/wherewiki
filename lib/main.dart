@@ -79,15 +79,27 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(label: "Country", icon: Icon(Icons.home_work_outlined)),
-          BottomNavigationBarItem(label: "City", icon: Icon(Icons.home_outlined)),
-          BottomNavigationBarItem(label: "Settings", icon: Icon(Icons.settings)),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: _onItemTapped,
+        destinations: const [
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home_work),
+            icon: Icon(Icons.home_work_outlined),
+            label: 'Country',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: 'City',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.settings),
+            icon: Icon(Icons.settings_outlined),
+            label: 'Settings',
+          ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      )
     );
   }
 }
