@@ -31,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
   Future<WikiResponse?> getWiki() async {
     var res = await Wikidart.searchQuery('Google');
     var pageid = res?.results?.first.pageId;
@@ -44,16 +45,23 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Center(child: Text(widget.title)),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const Spacer(flex: 2,),
             Center(
               child: Text(
                 'What is the country of the day? We will find out soon',
@@ -61,11 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
             ),
+            const Spacer(),
             FutureBuilder(
                 future: getWiki(),
                 builder: (ctx, snapshot){
                   return Text(snapshot.data?.description ?? '');
-                })
+                }),
+            const Spacer(flex: 2,),
           ],
         ),
       ),
@@ -75,6 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(label: "City", icon: Icon(Icons.home_outlined)),
           BottomNavigationBarItem(label: "Settings", icon: Icon(Icons.settings)),
         ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
