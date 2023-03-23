@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(
               child: Text(
                 'What is the country of the day? We will find out soon',
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headline5,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -73,7 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
             FutureBuilder(
                 future: getWiki(),
                 builder: (ctx, snapshot){
-                  return Text(snapshot.data?.description ?? '');
+                  return Text(snapshot.data?.description ?? '',
+                  style: Theme.of(context).textTheme.bodyMedium,);
                 }),
             const Spacer(flex: 2,),
           ],
