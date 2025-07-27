@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(
               child: Text(
                 'What is the country of the day? We will find out soon',
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
             ),
